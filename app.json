@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "buscar-hospitais",
-    "slug": "buscar-hospitais",
+    "name": "buscar-estacoesBike",
+    "slug": "buscar-estacoesBike",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
