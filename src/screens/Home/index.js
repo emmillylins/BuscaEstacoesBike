@@ -6,7 +6,7 @@ import {
     Input,
     Button,
     ButtonText,
-    AddressHospital,
+    AddressEstacaoBike,
     Text
 } from './styles';
 import logo from '../../assets/logo.png';
@@ -14,25 +14,25 @@ import api from '../../services/api';
 
 export default function Home() {
     const [bairro, setBairro] = useState('');
-    const [hospital, setHospital] = useState(null);
+    const [estacaoBike, setestacaoBike] = useState(null);
 
     async function handleBuscar() {
         try {
-            const { status, data } = await api.get(`api/3/action/datastore_search?q=${bairro}&resource_id=a2dab4d4-3a7b-4cce-b3a7-dd7f5ef22226&limit`);
+            const { status, data } = await api.get(`api/3/action/datastore_search?q=${bairro}&resource_id=e6e4ac72-ff15-4c5a-b149-a1943386c031`);
 
             if (status != 200 || data.erro) {
-                Alert.alert('Buscar', 'Digite um Bairro válido.');
+                Alert.alert('Buscar', 'Digite um bairro válido.');
             } else {
-                setHospital(data.result.records);
+                setestacaoBike(data.result.records);
             }
 
         } catch (error) {
-            Alert.alert('Buscar', 'Digite um Bairro válido');
+            Alert.alert('Buscar', 'Digite um bairro válido');
         }
     };
 
     async function handleLimpar() {
-        setHospital(null);
+        setestacaoBike(null);
         setBairro('');
     }
 
@@ -51,37 +51,36 @@ export default function Home() {
                 delay={100}
                 duration={1500}
             >
-                {!hospital &&
+                {!estacaoBike &&
                     <Input
                         keyboardType="default"
                         maxLength={30}
                         onChangeText={setBairro}
                         onSubmitEditing={handleBuscar}
-                        placeholder="Digite o Bairro do hospital que deseja buscar"
-                        placeholderTextColor="#688d38"
+                        placeholder="Digite o Bairro do estação que deseja buscar"
+                        placeholderTextColor="#2F48D4"
                         value={bairro}
                     />
                 }
 
                 <Button
                     activeOpacity={0.8}
-                    onPress={hospital ? handleLimpar : handleBuscar}>
+                    onPress={estacaoBike ? handleLimpar : handleBuscar}>
                     <ButtonText>
-                        {hospital ? 'Limpar' : 'Buscar'}
+                        {estacaoBike ? 'Limpar' : 'Buscar'}
                     </ButtonText>
                 </Button>
             </Animation>
 
-            {hospital &&
-                <AddressHospital>
+            {estacaoBike &&
+                <AddressEstacaoBike>
                 
                     <Text>Bairro: {bairro}{'\n'}</Text>
-                    <Text>Nome do hospital: {hospital[0].nome_oficial}{'\n'}</Text>
-                    <Text>Endereco: {hospital[0].endereço}{'\n'}</Text>
-                    <Text>Especialidade: {hospital[0].especialidade}{'\n'}</Text>
-                    <Text>Telefone: {hospital[0].fone}</Text>
-                </AddressHospital>
+                    <Text>Nome da Estação: {estacaoBike[0].nome}{'\n'}</Text>
+                    <Text>Endereco: {estacaoBike[0].localizacao}{'\n'}</Text>
+                    <Text>Capacidade: {estacaoBike[0].capacidade}{'\n'}</Text>
+                </AddressEstacaoBike>
             }
         </Container>
-    );
+    );
 }
