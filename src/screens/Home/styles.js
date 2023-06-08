@@ -41,7 +41,7 @@ export const ButtonText = styled.Text`
     text-transform: uppercase;
 `;
 
-export const AddressHospital = styled.View`
+export const AddressEstacaoBike = styled.View`
     align-items: center;
     margin-top: 15px;
 `;
